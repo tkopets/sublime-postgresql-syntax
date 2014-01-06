@@ -12,7 +12,7 @@ Using Package Control ensures package will stay up to date automatically.
 
 Manually:
 
-1. Clone or [download](https://github.com/tkopets/sublime-syntax-postgresql/archive/master.zip)
+1. Clone or [download](https://github.com/tkopets/sublime-postgresql-syntax/archive/master.zip)
 git repo into your packages folder (in Sublime Text, find `Browse Packages...`
 menu item to open this folder)
 2. Restart Sublime Text editor (if required)
