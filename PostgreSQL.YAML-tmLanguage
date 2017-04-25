@@ -83,21 +83,22 @@ repository:
 
   dollar_quotes:
     patterns:
-    - comment: "Assume multiline dollar quote is SQL; start if quote is at the end\
-        \ of the line.\n\t\t                This could easily support other PL languages\
-        \ like PHP and Ruby -- see PHP heredoc as an example."
-      # contentName: meta.generic.dollar-quote.pgsql
-      name: meta.dollar-quote.pgsql
+    - comment: "Assume multiline dollar quote is SQL; start if quote is at the end of the line."
+      # name: meta.dollar-quote.pgsql
+      contentName: meta.generic.dollar-quote.pgsql
       begin: (\$[\w_0-9]*\$)$
-      # beginCaptures:
-      #   '1': {name: punctuation.definition.dollar-quote.begin.pgsql}
+      beginCaptures:
+        '1': {name: punctuation.dollar-quote.begin.pgsql}
       end: \1
-      # endCaptures:
-      #   '0': {name: punctuation.definition.dollar-quote.end.pgsql}
+      endCaptures:
+        '0': {name: punctuation.dollar-quote.end.pgsql}
       patterns:
       - include: '#dollar_quotes'
       - include: '#comments'
       - include: '#strings'
+      # - include: '#statement_create_function_view'
+      # - include: '#statement_create_other'
+      # - include: '#statement_commands'
       - include: '#keywords'
       - include: '#misc'
       - include: '#vars'
