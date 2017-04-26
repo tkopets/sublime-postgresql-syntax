@@ -34,7 +34,7 @@ repository:
         '0': {name: punctuation.definition.comment.pgsql}
 
   statement_create_function_view:
-    name: meta.statement.create.function-or-view.pgsql
+    name: meta.statement.create.pgsql
     begin: (?i)^\s*(create)\s+(or\s+replace\s+)?(function|view)\s+(?:([\w]+|".+")\.)?([\w]+|".+")(?:[\(|\s)])
     beginCaptures:
       '1': {name: keyword.other.create.pgsql}
@@ -85,7 +85,7 @@ repository:
     patterns:
     - comment: "Assume multiline dollar quote is SQL; start if quote is at the end of the line."
       # name: meta.dollar-quote.pgsql
-      contentName: meta.generic.dollar-quote.pgsql
+      contentName: meta.dollar-quote.pgsql
       begin: (\$[\w_0-9]*\$)$
       beginCaptures:
         '1': {name: punctuation.dollar-quote.begin.pgsql}
