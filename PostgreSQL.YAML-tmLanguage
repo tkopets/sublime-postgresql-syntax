@@ -199,10 +199,9 @@ repository:
   vars:
     patterns:
     - name: variable.parameter.pgsql
-      match: (?i)\b(_[-a-z0-9_]+)\b
+      match: (?i)\b(_[\w_-]+\.*[\w_-]*)\b
     - name: variable.parameter.pgsql
-      match: (?i)\b(p(i|t|b|n|c|d|r|ia|iv(?:al)?)_[-a-z0-9_]+)\b
-    - name: variable.parameter.pgsql
-      match: (?i)\b(v(i|t|b|n|c|d|r|ia|iv(?:al)?)_[-a-z0-9_]+)\b
+      match: (?i)\b([pv](i|t|b|n|c|d|r|ia|iv(?:al)?)_[\w_-]+\.*[\w_-]*)\b
+  
 foldingStartMarker: \s*\(\s*$
 foldingStopMarker: ^\s*\)
