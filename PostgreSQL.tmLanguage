@@ -134,6 +134,14 @@
 						</dict>
 						<dict>
 							<key>include</key>
+							<string>#statement_create_function_view</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#statement_create_other</string>
+						</dict>
+						<dict>
+							<key>include</key>
 							<string>#keywords</string>
 						</dict>
 						<dict>
