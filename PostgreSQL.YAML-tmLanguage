@@ -84,7 +84,7 @@ repository:
   dollar_quotes:
     patterns:
     - comment: "Assume multiline dollar quote is SQL body!
-        Start if double dollar quote is followed by no dollor quote till line ending.
+        Start if double dollar quote is followed by no dollar quote till line ending.
         See match for dollar quotes as string: string.unquoted.dollar.pgsql.
         This could easily support other PL languages like PHP and Ruby -- see PHP heredoc as an example."
       # name: meta.dollar-quote.pgsql
