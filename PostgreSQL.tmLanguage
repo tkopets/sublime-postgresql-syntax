@@ -358,6 +358,10 @@
 					<key>include</key>
 					<string>#misc</string>
 				</dict>
+				<dict>
+					<key>include</key>
+					<string>#vars</string>
+				</dict>
 			</array>
 		</dict>
 		<key>statement_create_function_view</key>
@@ -574,13 +578,13 @@
 			<array>
 				<dict>
 					<key>match</key>
-					<string>(?i)\b(_[\w_-]+\.*[\w_-]*)\b</string>
+					<string>(?i)\b(_[-\w_]+\.?[-\w_]*)\b</string>
 					<key>name</key>
 					<string>variable.parameter.pgsql</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)\b([pv](i|t|b|n|c|d|r|ia|iv(?:al)?)_[\w_-]+\.*[\w_-]*)\b</string>
+					<string>(?i)\b([pv](i|t|b|n|c|d|r|ia|iv(?:al)?)_[-\w_]+\.?[-\w_]*)\b</string>
 					<key>name</key>
 					<string>variable.parameter.pgsql</string>
 				</dict>

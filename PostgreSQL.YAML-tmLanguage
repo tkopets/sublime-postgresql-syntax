@@ -80,6 +80,7 @@ repository:
     - include: '#strings'
     - include: '#keywords'
     - include: '#misc'
+    - include: '#vars'
 
   dollar_quotes:
     patterns:
@@ -199,9 +200,9 @@ repository:
   vars:
     patterns:
     - name: variable.parameter.pgsql
-      match: (?i)\b(_[\w_-]+\.*[\w_-]*)\b
+      match: (?i)\b(_[-\w_]+\.?[-\w_]*)\b
     - name: variable.parameter.pgsql
-      match: (?i)\b([pv](i|t|b|n|c|d|r|ia|iv(?:al)?)_[\w_-]+\.*[\w_-]*)\b
+      match: (?i)\b([pv](i|t|b|n|c|d|r|ia|iv(?:al)?)_[-\w_]+\.?[-\w_]*)\b
   
 foldingStartMarker: \s*\(\s*$
 foldingStopMarker: ^\s*\)
