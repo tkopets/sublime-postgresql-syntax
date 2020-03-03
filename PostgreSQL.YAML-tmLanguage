@@ -83,10 +83,13 @@ repository:
 
   dollar_quotes:
     patterns:
-    - comment: "Assume multiline dollar quote is SQL; start if quote is at the end of the line."
+    - comment: "Assume multiline dollar quote is SQL body!
+        Start if double dollar quote is followed by no dollor quote till line ending.
+        See match for dollar quotes as string: string.unquoted.dollar.pgsql.
+        This could easily support other PL languages like PHP and Ruby -- see PHP heredoc as an example."
       # name: meta.dollar-quote.pgsql
       contentName: meta.dollar-quote.pgsql
-      begin: (\$[\w_0-9]*\$)$
+      begin: (\$[\w_]*\$)(?=[^\$]*$)
       beginCaptures:
         '1': {name: punctuation.dollar-quote.begin.pgsql}
       end: \1
@@ -186,9 +189,11 @@ repository:
     - comment: Double quoting treated like strings, but they are really identifiers.
       name: variable.other.pgsql
       match: (")[^"#]*(")
-    - comment: Color as a string if dollar quote did not start at the end of a line.
+    - comment: "Color dollar double quotes as a string if in one line.
+        No multiline supported because function body is with dollar quotes,
+        see meta.dollar-quote.pgsql."
       name: string.unquoted.dollar.pgsql
-      begin: (\$[\w_0-9]*\$)
+      begin: (\$[\w_]*\$)
       end: \1
 
   vars:
