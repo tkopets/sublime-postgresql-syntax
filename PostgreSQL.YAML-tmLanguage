@@ -89,7 +89,7 @@ repository:
         This could easily support other PL languages like PHP and Ruby -- see PHP heredoc as an example."
       # name: meta.dollar-quote.pgsql
       contentName: meta.dollar-quote.pgsql
-      begin: (\$[\w_]*\$)(?:\s*)(?=[-\/\n\r]+)
+      begin: (\$[\w_]*\$)(?=\s*[-\/\n\r]+)
       beginCaptures:
         '1': {name: punctuation.dollar-quote.begin.pgsql}
       end: \1
