@@ -53,6 +53,20 @@
 	</array>
 	<key>repository</key>
 	<dict>
+		<key>calls</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>comment</key>
+					<string>schema.table.field calls</string>
+					<key>match</key>
+					<string>(?i)\b([-\w_]*\.?[-\w_]+\.[-\w_]+\b)</string>
+					<key>name</key>
+					<string>constant.other.pgsql</string>
+				</dict>
+			</array>
+		</dict>
 		<key>comments</key>
 		<dict>
 			<key>patterns</key>
@@ -157,6 +171,10 @@
 						<dict>
 							<key>include</key>
 							<string>#proc</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#calls</string>
 						</dict>
 					</array>
 				</dict>
@@ -374,6 +392,10 @@
 					<key>include</key>
 					<string>#misc</string>
 				</dict>
+				<dict>
+					<key>include</key>
+					<string>#calls</string>
+				</dict>
 			</array>
 		</dict>
 		<key>statement_create_function_view</key>
@@ -442,6 +464,10 @@
 					<key>include</key>
 					<string>#proc</string>
 				</dict>
+				<dict>
+					<key>include</key>
+					<string>#calls</string>
+				</dict>
 			</array>
 		</dict>
 		<key>statement_create_other</key>
@@ -496,6 +522,10 @@
 				<dict>
 					<key>include</key>
 					<string>#misc</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#calls</string>
 				</dict>
 			</array>
 		</dict>
