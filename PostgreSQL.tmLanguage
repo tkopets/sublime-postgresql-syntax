@@ -95,7 +95,7 @@
 			<array>
 				<dict>
 					<key>begin</key>
-					<string>(\$[\w_]*\$)(?=[^\$]*$)</string>
+					<string>(\$[\w_]*\$)(?=\s*[-\/\n\r]+)</string>
 					<key>beginCaptures</key>
 					<dict>
 						<key>1</key>
@@ -105,7 +105,9 @@
 						</dict>
 					</dict>
 					<key>comment</key>
-					<string>Assume multiline dollar quote is SQL body! Start if double dollar quote is followed by no dollar quote till line ending. See match for dollar quotes as string: string.unquoted.dollar.pgsql. This could easily support other PL languages like PHP and Ruby -- see PHP heredoc as an example.</string>
+					<string>Assume multiline dollar quote is SQL body! Start if double dollar quote is followed by comment (-- or /**/) or linebreak (
+ or 
+). See match for dollar quotes as string: string.unquoted.dollar.pgsql. This could easily support other PL languages like PHP and Ruby -- see PHP heredoc as an example.</string>
 					<key>contentName</key>
 					<string>meta.dollar-quote.pgsql</string>
 					<key>end</key>
@@ -574,7 +576,7 @@
 					<key>begin</key>
 					<string>(\$[\w_]*\$)</string>
 					<key>comment</key>
-					<string>Color dollar double quotes as a string if in one line. No multiline supported because function body is with dollar quotes, see meta.dollar-quote.pgsql.</string>
+					<string>Color double dollar quotes as a string Only if not followed by comment or linebreak, see meta.dollar-quote.pgsql.</string>
 					<key>end</key>
 					<string>\1</string>
 					<key>name</key>
