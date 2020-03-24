@@ -148,11 +148,13 @@ repository:
       match: \|\|
     - name: keyword.operator.cast.pgsql
       match: '::'
+    - name: constant.language.pgsql
+      match: (?i)\b(true|false|null)\b
 
   proc:
     patterns:
     - name: keyword.control.proc.pgsql
-      match: (?xi)\b(case|continue|else|elseif|elsif|exit|for|foreach|if|loop|return(?:(?:\s+next)|(?:\s+query))?|slice|then|when|while)\b
+      match: (?xi)\b(case|continue|else|elseif|elsif|exit|for|foreach|if|loop|return(?:(?:\s+next)|(?:\s+query))?|slice|then|when|while|reverse)\b
     - name: keyword.other.proc.pgsql
       match: (?xi)\b(alias|begin|constant|declare|end|exception|execute|get\s+(?:stacked\s+)?diagnostics|perform|raise|using|message|detail|hint|errcode|debug|log|info|notice|warning)\b
     - name: support.function.proc.pgsql

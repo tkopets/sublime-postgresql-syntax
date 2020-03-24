@@ -282,6 +282,12 @@
 					<key>name</key>
 					<string>keyword.operator.cast.pgsql</string>
 				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?i)\b(true|false|null)\b</string>
+					<key>name</key>
+					<string>constant.language.pgsql</string>
+				</dict>
 			</array>
 		</dict>
 		<key>proc</key>
@@ -290,7 +296,7 @@
 			<array>
 				<dict>
 					<key>match</key>
-					<string>(?xi)\b(case|continue|else|elseif|elsif|exit|for|foreach|if|loop|return(?:(?:\s+next)|(?:\s+query))?|slice|then|when|while)\b</string>
+					<string>(?xi)\b(case|continue|else|elseif|elsif|exit|for|foreach|if|loop|return(?:(?:\s+next)|(?:\s+query))?|slice|then|when|while|reverse)\b</string>
 					<key>name</key>
 					<string>keyword.control.proc.pgsql</string>
 				</dict>
