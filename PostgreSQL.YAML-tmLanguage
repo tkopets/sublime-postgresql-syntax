@@ -55,7 +55,7 @@ repository:
 
   statement_create_other:
     name: meta.statement.create.pgsql
-    begin: (?i:^\s*(create)\s+(aggregate|collation|(?:default\s+)?conversion|database|domain|extension(?:\s+if\s+not\s+exists)?|foreign\s+data\s+wrapper|foreign\s+table(?:\s+if\s+not\s+exists)?|group|(?:unique\s+)?index(?:\s+concurrently)?(?:\s+if\s+not\s+exists)?|(?:or\s+replace\s+)?(?:trusted\s+)?(?:procedural\s+)?language|operator\s+class|operator\s+family|operator|policy|role|(?:or\s+replace\s+)?rule|schema(?:\s+if\s+not\s+exists)?(?:\s+authorization)?|(?:(?:temporary|temp)\s+)?sequence(?:\s+if\s+not\s+exists)?|server|(?:(?:global|local)\s+)?(?:(?:temporary|temp)\s+)?(?:unlogged\s+)?table(?:\s+if\s+not\s+exists)?|tablespace|text\s+search\s+configuration|text\s+search\s+dictionary|text\s+search\s+parser|text\s+search\s+template|(?:(?:constraint|event)\s+)?trigger|type|user\s+mapping\s+for|user|materialized\s+view(?:\s+if\s+not\s+exists)?|(?:or\s+replace\s+)?(?:(?:temporary|temp)\s+)?(?:recursive\s+)?view)\s+)(?:([\w]+|".+")\.)?([\w]+|".+")(?=[\(|\s|\;)])
+    begin: (?i:^\s*(create)\s+(aggregate|collation|(?:default\s+)?conversion|database|domain|extension(?:\s+if\s+not\s+exists)?|foreign\s+data\s+wrapper|foreign\s+table(?:\s+if\s+not\s+exists)?|group|(?:unique\s+)?index(?!\s+on)(?:\s+concurrently)?(?:\s+if\s+not\s+exists)?|(?:or\s+replace\s+)?(?:trusted\s+)?(?:procedural\s+)?language|operator\s+class|operator\s+family|operator|policy|role|(?:or\s+replace\s+)?rule|schema(?:\s+if\s+not\s+exists)?(?:\s+authorization)?|(?:(?:temporary|temp)\s+)?sequence(?:\s+if\s+not\s+exists)?|server|(?:(?:global|local)\s+)?(?:(?:temporary|temp)\s+)?(?:unlogged\s+)?table(?:\s+if\s+not\s+exists)?|tablespace|text\s+search\s+configuration|text\s+search\s+dictionary|text\s+search\s+parser|text\s+search\s+template|(?:(?:constraint|event)\s+)?trigger|type|user\s+mapping\s+for|user|materialized\s+view(?:\s+if\s+not\s+exists)?|(?:or\s+replace\s+)?(?:(?:temporary|temp)\s+)?(?:recursive\s+)?view)\s+)(?:([\w]+|".+")\.)?([\w]+|".+")(?=[\(|\s|\;)])
     beginCaptures:
       '1': {name: keyword.other.create.pgsql}
       '2': {name: keyword.other.pgsql}
@@ -87,12 +87,12 @@ repository:
   dollar_quotes:
     patterns:
     - comment: "Assume multiline dollar quote is SQL body!
-        Start if double dollar quote is followed by no dollar quote till line ending.
+        Start if double dollar quote is followed by comment (-- or /**/) or linebreak (\n or \r).
         See match for dollar quotes as string: string.unquoted.dollar.pgsql.
         This could easily support other PL languages like PHP and Ruby -- see PHP heredoc as an example."
       # name: meta.dollar-quote.pgsql
       contentName: meta.dollar-quote.pgsql
-      begin: (\$[\w_]*\$)(?=[^\$]*$)
+      begin: (\$[\w_]*\$)(?=\s*[-\/\n\r]+)
       beginCaptures:
         '1': {name: punctuation.dollar-quote.begin.pgsql}
       end: \1
@@ -102,8 +102,8 @@ repository:
       - include: '#dollar_quotes'
       - include: '#comments'
       - include: '#strings'
-      # - include: '#statement_create_function_view'
-      # - include: '#statement_create_other'
+      - include: '#statement_create_function_view'
+      - include: '#statement_create_other'
       # - include: '#statement_commands'
       - include: '#keywords'
       - include: '#misc'
@@ -124,11 +124,11 @@ repository:
         '1': {name: support.function.pgsql}
     - name: support.function.pgsql
       match: (?i)\b(current_catalog|current_date|current_role|current_schema|current_time|current_timestamp|current_user|session_user|localtime|localtimestamp)\b
-    - match: (?xi)\b(abort|access\s+share|access\s+exclusive|add|admin|after|aggregate|all|also|alter|always|analyse|analyze|and|any|array|as|as\s+assignment|as\s+implicit|asc|asymmetric|at|at\s+time\s+zone|attribute|authorization|before|begin|between|by|bypassrls|cache|called\s+on\s+null\s+input|cascade|case|cast|characteristics|check|checkpoint|close|cluster|collate|collation|column|comment|comments|commit|concurrently|configuration|connection|constraint|constraints|content|continue|conversion|copy|cost|create|createdb|createrole|createuser|cross\s+join|csv|cube|current|cursor|cycle|data|database|day|ddl_command_start|ddl_command_end|deallocate|declare|default|defaults|deferrable|deferred|delete|delimiter|delimiters|desc|dictionary|disable|discard|distinct|do|document|domain|drop|each|else|enable|encoding|encrypted|end|enum|escape|event|except|exclude|excluding|exclusive|execute|exists|explain|extension|external|false|family|absolute|relative|prior|backward|forward|fetch|fillfactor|first|following|for|force|foreign|freeze|from|full|function|all\s+functions|on\s+functions|global|grant|group|grouping\s+sets|handler|having|header|hold|hour|identity|if|ilike|immediate|immutable|in|including|increment|index|indexes|inherit|inherits|initially\s+deferred|initially\s+immediate|inline|inner|inout|input|insensitive|insert|instead|intersect|into|is|isnull|isolation\s+level|join|key|label|language|last|lateral|lc_collate|lc_ctype|left|like|limit|listen|load|local|locale|location|lock|logged|login|mapping|match|materialized|maxvalue|minute|minvalue|mode|month|move|names|natural|next|no\s+action|no|none|nobypassrls|nocreatedb|nocreaterole|nocreateuser|noinherit|nologin|noreplication|nosuperuser|not|nothing|notify|notnull|nowait|null|nullif|nulls|of|off|offset|oids|on\s+conflict|on|only|operator\s+class|operator|option|options|or|order|out|outer\s+join|over|overlaps|owned|owner|parser|partial|partition|password|plans|plpgsql|policy|position|preceding|prepare|prepared|preserve\s+rows|primary|privileges|procedural|procedure|program|quote|range|read\s+committed|read\s+uncommitted|read|reassign|recheck|record|recursive|refcursor|references|refresh|reindex|release|rename|repeatable|replace|replica|replication|reset|restart|restrict|returning|returns|revoke|right|role|rollback|rollup|row\s+level|row|rows|rule|savepoint|schema|scroll|search|second|security\s+definer|security\s+invoker|security|select|session_user|sequence|sequences|serializable|server|session|set|setof|share|show|similar|simple|skip\s+locked|some|stable|start|statement|statistics|stdin|stdout|storage|strict|symmetric|system|sql|sql_drop|superuser|table|tables|tablesample\s+bernoulli|tablesample\s+system|tablesample|tablespace|temp|template|temporary|then|to|trailing|transaction|transform|trigger|trim|true|truncate|trusted|type|unbounded\s+preceding|unbounded\s+following|unencrypted|union|unique|unknown|unlisten|unlogged|update|user|using|vacuum|valid\s+until|valid|validate|validator|value|values|variadic|verbose|version|view|volatile|when\s+tag|when|where|window|with\s+cascaded|with\s+ordinality|with|within|without|work|wrapper|write|year|yes)\b
+    - name: storage.type.pgsql
+      match: (?i)\b(aclitem|anyelement|anyarray|anynonarray|anyenum|anyrange|cstring|internal|language_handler|fdw_handler|void|opaque|smallint|integer|int|bigint|int2|int4|int8|numeric|decimal|dec|double(?:\s+precision)?|real|float|float4|float8|smallserial|serial|bigserial|text|varchar|character\s+varying|char|character|bpchar|name|bytea|bool|boolean|date|time|timestamp|with(out)?\s+time\s+zone|timetz|timestamptz|tinterval|interval|point|lseg|box|line|path|polygon|circle|cidr|inet|macaddr|bit|varbit|bit\s+varying|tsvector|tsquery|uuid|xml|json|jsonb|txid_snapshot|money|oid|oidvector|int2range|int4range|int8range|numrange|tsrange|tstzrange|daterange|event_trigger|cid|xid|tid|regclass|regconfig|regdictionary|regoper|regoperator|regproc|regprocedure|reltime|abstime|record)\b
+    - match: (?xi)\b(abort|access\s+share|access\s+exclusive|add|admin|after|aggregate|all|also|alter|always|analyse|analyze|and|any|array|as|as\s+assignment|as\s+implicit|asc|asymmetric|at|at\s+time\s+zone|attribute|authorization|before|begin|between|by|bypassrls|cache|called\s+on\s+null\s+input|null\s+on\s+null\s+input|strict|is\s+null|not\s+null|is\s+true|is\s+not\s+true|is\s+false|is\s+not\s+false|cascade|case|cast|characteristics|check|checkpoint|close|cluster|collate|collation|column|comment|comments|commit|concurrently|configuration|connection|constraint|constraints|content|continue|conversion|copy|cost|create|createdb|createrole|createuser|cross\s+join|csv|cube|current|cursor|cycle|data|database|day|ddl_command_start|ddl_command_end|deallocate|declare|default|defaults|deferrable|deferred|delete|delimiter|delimiters|desc|dictionary|disable|discard|distinct|do|document|domain|drop|each|else|enable|encoding|encrypted|end|enum|escape|event|except|exclude|excluding|exclusive|execute|exists|explain|extension|external|family|absolute|relative|prior|backward|forward|fetch|fillfactor|first|following|for|force|foreign|freeze|from|full|function|all\s+functions|on\s+functions|global|grant|group|grouping\s+sets|handler|having|header|hold|hour|identity|if|ilike|immediate|immutable|in|including|increment|index|indexes|inherit|inherits|initially\s+deferred|initially\s+immediate|inline|inner|inout|input|insensitive|insert|instead|intersect|into|is|isnull|isolation\s+level|join|key|label|language|last|lateral|lc_collate|lc_ctype|left|like|limit|listen|load|local|locale|location|lock|logged|login|mapping|match|materialized|maxvalue|minute|minvalue|mode|month|move|names|natural|next|no\s+action|no|none|nobypassrls|nocreatedb|nocreaterole|nocreateuser|noinherit|nologin|noreplication|nosuperuser|not|nothing|notify|notnull|nowait|nullif|nulls|of|off|offset|oids|on\s+conflict|on|only|operator\s+class|operator|option|options|or|order|out|outer\s+join|over|overlaps|owned|owner|parser|partial|partition|password|plans|plpgsql|policy|position|preceding|prepare|prepared|preserve\s+rows|primary|privileges|procedural|procedure|program|quote|range|read\s+committed|read\s+uncommitted|read|reassign|recheck|recursive|refcursor|references|refresh|reindex|release|rename|repeatable|replace|replica|replication|reset|restart|restrict|returning|returns|revoke|right|role|rollback|rollup|row\s+level|row|rows|rule|savepoint|schema|scroll|search|second|security\s+definer|security\s+invoker|security|select|session_user|sequence|sequences|serializable|server|session|set|setof|share|show|similar|simple|skip\s+locked|some|stable|start|statement|statistics|stdin|stdout|storage|symmetric|system|sql|sql_drop|superuser|table|tables|tablesample\s+bernoulli|tablesample\s+system|tablesample|tablespace|temp|template|temporary|then|to|trailing|transaction|transform|trigger|trim|truncate|trusted|type|unbounded\s+preceding|unbounded\s+following|unencrypted|union|unique|unknown|unlisten|unlogged|update|user|using|vacuum|valid\s+until|valid|validate|validator|value|values|variadic|verbose|version|view|volatile|when\s+tag|when|where|window|with\s+cascaded|with\s+ordinality|with|within|without|work|wrapper|write|year|yes|parallel\s+(unsafe|restricted|safe)|leakproof|filter)\b
       captures:
         '1': {name: keyword.other.pgsql}
-    - name: storage.type.pgsql
-      match: (?i)\b(aclitem|anyelement|anyarray|anynonarray|anyenum|anyrange|cstring|internal|language_handler|fdw_handler|void|opaque|smallint|integer|int|bigint|int2|int4|int8|numeric|decimal|dec|double(?:\s+precision)?|real|float|float4|float8|smallserial|serial|bigserial|text|varchar|character\s+varying|char|character|bpchar|name|bytea|bool|boolean|date|time(?:\s+with(?:out)?\s+time\s+zone)?|timetz|timestamp(?:\s+with(?:out)?\s+time\s+zone)?|timestamptz|tinterval|interval|point|lseg|box|line|path|polygon|circle|cidr|inet|macaddr|bit|varbit|bit\s+varying|tsvector|tsquery|uuid|xml|json|jsonb|txid_snapshot|money|oid|oidvector|int2range|int4range|int8range|numrange|tsrange|tstzrange|daterange|event_trigger|cid|xid|tid|regclass|regconfig|regdictionary|regoper|regoperator|regproc|regprocedure|reltime|abstime)\b
 
   misc:
     patterns:
@@ -152,11 +152,13 @@ repository:
       match: \|\|
     - name: keyword.operator.cast.pgsql
       match: '::'
+    - name: constant.language.pgsql
+      match: (?i)\b(true|false|null)\b
 
   proc:
     patterns:
     - name: keyword.control.proc.pgsql
-      match: (?xi)\b(case|continue|else|elseif|elsif|exit|for|foreach|if|loop|return(?:(?:\s+next)|(?:\s+query))?|slice|then|when|while)\b
+      match: (?xi)\b(case|continue|else|elseif|elsif|exit|for|foreach|if|loop|return(?:(?:\s+next)|(?:\s+query))?|slice|then|when|while|reverse)\b
     - name: keyword.other.proc.pgsql
       match: (?xi)\b(alias|begin|constant|declare|end|exception|execute|get\s+(?:stacked\s+)?diagnostics|perform|raise|using|message|detail|hint|errcode|debug|log|info|notice|warning)\b
     - name: support.function.proc.pgsql
@@ -199,9 +201,8 @@ repository:
     - comment: Double quoting treated like strings, but they are really identifiers.
       name: variable.other.pgsql
       match: (")[^"#]*(")
-    - comment: "Color dollar double quotes as a string if in one line.
-        No multiline supported because function body is with dollar quotes,
-        see meta.dollar-quote.pgsql."
+    - comment: "Color double dollar quotes as a string
+        Only if not followed by comment or linebreak, see meta.dollar-quote.pgsql."
       name: string.unquoted.dollar.pgsql
       begin: (\$[\w_]*\$)
       end: \1
