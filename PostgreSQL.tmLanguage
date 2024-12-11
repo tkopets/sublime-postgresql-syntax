@@ -379,7 +379,7 @@
 		<key>statement_create_function_view</key>
 		<dict>
 			<key>begin</key>
-			<string>(?i)^\s*(create)\s+(or\s+replace\s+)?(function|view)\s+(?:([\w]+|".+")\.)?([\w]+|".+")(?:[\(|\s)])</string>
+			<string>(?i)^\s*(create)\s+(or\s+replace\s+)?(function|view|procedure)\s+(?:([\w]+|".+")\.)?([\w]+|".+")(?:[\(|\s)])</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>

@@ -35,7 +35,7 @@ repository:
 
   statement_create_function_view:
     name: meta.statement.create.pgsql
-    begin: (?i)^\s*(create)\s+(or\s+replace\s+)?(function|view)\s+(?:([\w]+|".+")\.)?([\w]+|".+")(?:[\(|\s)])
+    begin: (?i)^\s*(create)\s+(or\s+replace\s+)?(function|view|procedure)\s+(?:([\w]+|".+")\.)?([\w]+|".+")(?:[\(|\s)])
     beginCaptures:
       '1': {name: keyword.other.create.pgsql}
       '2': {name: keyword.other.pgsql}
